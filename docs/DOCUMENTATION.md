@@ -267,8 +267,176 @@ ai-service/
 
 
 ## 🎨 Antarmuka & Komponen Desain (Next.js)
-*(Belum Diimplementasi)*
-Penerapan layout, routing, tema warna sesuai `DESIGN.md`, dan komponen React (seperti ChatWidget & Cart).
+
+Frontend dibangun menggunakan **Next.js 16** (App Router) + **Tailwind CSS v4** + **TypeScript**, menerapkan sistem desain dari `DESIGN.md` (warm cream editorial) yang dipadukan dengan pola kartu produk ala **Syihab Store** (trust badge, brand header, info cicilan).
+
+### Teknologi & Dependensi
+
+| Paket | Versi | Fungsi |
+|-------|-------|--------|
+| `next` | 16.2.6 | Framework React SSR/SSG dengan App Router |
+| `tailwindcss` | 4.3.0 | CSS utility framework (konfigurasi via `@theme inline`) |
+| `axios` | latest | HTTP client untuk komunikasi dengan backend NestJS & AI FastAPI |
+| `zustand` | latest | State management ringan untuk keranjang belanja & autentikasi |
+| `lucide-react` | latest | Ikon SVG yang konsisten |
+| `@tanstack/react-query` | latest | Data fetching & caching (disiapkan, belum digunakan penuh) |
+
+### Sistem Desain yang Diterapkan
+
+Token desain dari `DESIGN.md` diimplementasikan sebagai CSS custom properties dalam `@theme inline` (Tailwind v4):
+
+| Token DESIGN.md | Nilai | Penerapan di Frontend |
+|---|---|---|
+| Canvas | `#f7f7f4` | Background halaman (warm cream, bukan putih) |
+| Cursor Orange | `#f54e00` | Semua tombol CTA, label harga, aksen brand |
+| Ink | `#26251e` | Judul display, teks kuat, bar trust badge |
+| Body | `#5a5852` | Teks paragraf utama |
+| Hairline | `#e6e5e0` | Border 1px pada kartu & divider (tanpa shadow) |
+| Surface Card | `#ffffff` | Background kartu produk |
+| Timeline Palette | 5 warna pastel | Pill kategori & animasi loading AI chat |
+| Section Spacing | 80px | Jarak vertikal antar section |
+| Inter 400 | display weight | Gaya magazine editorial (tidak bold) |
+
+### Struktur Direktori Frontend
+
+```
+frontend/src/
+├── app/
+│   ├── globals.css             # Sistem desain: warna, tipografi, spacing
+│   ├── layout.tsx              # Root layout (Navbar + Footer + ChatWidget)
+│   ├── page.tsx                # Halaman Utama (Hero + Grid Produk)
+│   ├── products/
+│   │   ├── page.tsx            # Katalog Produk (search, filter, pagination)
+│   │   └── [id]/
+│   │       └── page.tsx        # Detail Produk (SSR, spek teknis, CTA)
+│   ├── auth/
+│   │   ├── login/page.tsx      # Login (JWT, demo credentials)
+│   │   └── signup/page.tsx     # Registrasi (JWT)
+│   └── checkout/
+│       └── page.tsx            # Checkout (ringkasan + order API)
+├── components/
+│   ├── Navbar.tsx              # Header sticky: logo, search bar, cart badge, auth
+│   ├── Footer.tsx              # Footer 5-kolom + newsletter + payment badges
+│   ├── ProductCard.tsx         # ⭐ Kartu produk ala Syihab Store
+│   ├── CategoryPill.tsx        # Pill filter kategori (warna timeline palette)
+│   ├── HeroBanner.tsx          # Banner hero: headline + gradient blob + CTA
+│   ├── CartDrawer.tsx          # Panel keranjang geser dari kanan
+│   └── ChatWidget.tsx          # ⭐ Widget Konsultan AI (FAB + chat panel)
+├── hooks/
+│   ├── useProducts.ts          # Fetch produk + fallback mock data
+│   ├── useAuth.ts              # Login/signup JWT via NestJS API
+│   └── useChat.ts              # Chat AI via FastAPI RAG endpoint
+├── lib/
+│   ├── types.ts                # Interface TypeScript (Product, User, Order, Chat)
+│   ├── api.ts                  # Axios instance NestJS + JWT interceptor
+│   ├── ai-api.ts               # Axios instance FastAPI AI Service
+│   ├── store.ts                # Zustand store (cart + auth, persisted)
+│   └── mock-data.ts            # Data produk fallback + gambar premium
+└── public/
+```
+
+### Komponen Utama
+
+#### `ProductCard.tsx` — Kartu Produk (Gaya Syihab Store)
+
+Kartu produk mengadopsi pola visual dari Syihab Store yang dikombinasikan dengan token `DESIGN.md`:
+
+| Elemen | Deskripsi |
+|--------|-----------|
+| **Brand Header** | Baris atas kartu: "GADGETSOL" (kiri) + "Garansi Resmi ✓" (kanan) dalam `caption-uppercase` |
+| **Nama Produk** | Di atas gambar, uppercase 13px — mirip layout Syihab Store |
+| **Gambar Produk** | Aspect-ratio square, `object-contain`, hover scale 105% |
+| **Trust Badge Bar** | Strip horizontal gelap: "100% ORIGINAL \| FREE ONGKIR \| GARANSI RESMI" |
+| **Harga** | "Mulai dari:" + harga dalam `Cursor Orange` bold |
+| **Info Cicilan** | "Atau cicilan: 6x Rp.../bln" |
+| **Tombol CTA** | "Tambah ke Keranjang" (`button-primary`, orange) |
+
+#### `ChatWidget.tsx` — Widget Konsultan AI
+
+Widget chat mengambang di pojok kanan bawah:
+
+| Elemen | Deskripsi |
+|--------|-----------|
+| **FAB Button** | Tombol bulat orange dengan ikon Sparkles, shadow orange |
+| **Panel Chat** | 380×520px, `surface-card` bg, rounded-xl, ink header |
+| **Bubble User** | Background `primary` (orange), teks putih |
+| **Bubble AI** | Background `surface-card`, border hairline |
+| **Loading** | 3 dot bounce menggunakan warna timeline palette (peach → blue → lavender) |
+| **Koneksi** | `POST http://localhost:8000/api/chat` via `ai-api.ts` |
+
+#### `Navbar.tsx` — Navigasi Atas
+
+- Tinggi: 64px (sesuai `DESIGN.md top-nav`)
+- Background: canvas + backdrop-blur saat di-scroll
+- Search bar: pill-shaped, `surface-card` bg, `hairline` border
+- Cart badge: bulatan merah kecil menampilkan jumlah item
+- Responsif: hamburger menu pada layar < 768px
+
+### Halaman
+
+#### Halaman Utama (`/`)
+- **Hero Banner:** Headline `display-mega` (72px) "Temukan Gadget Impianmu" + dekoratif gradient blob
+- **Dual CTA:** "Jelajahi Produk" (primary) + "Tanya AI Konsultan" (secondary, membuka ChatWidget)
+- **Trust Indicators:** 100% Original, Free Ongkir, Garansi Resmi
+- **Grid Produk:** 4 kolom desktop, 2 tablet, 1 mobile, dengan category pills di atas
+- **CTA Band:** Section "Bingung Pilih Gadget?" mendorong user membuka Konsultan AI
+
+#### Katalog Produk (`/products`)
+- Search bar pill-shaped di atas
+- Category pills horizontal scrollable (warna timeline palette)
+- Filter aktif ditampilkan sebagai removable chips
+- Grid 3 kolom desktop, dengan pagination
+- Mendukung query params: `?category=...&search=...`
+
+#### Detail Produk (`/products/[id]`)
+- **Server-Side Rendered** (dynamic route)
+- Layout 2 kolom: gambar besar kiri, info kanan
+- Trust badges (Shield, Truck, Package) di bawah gambar
+- Card harga dengan info cicilan
+- Indikator stok (hijau/merah)
+- Tabel spesifikasi teknis (dari field `techSpecs` JSON)
+- Tombol "Tanya AI" membuka ChatWidget
+
+#### Login & Signup (`/auth/login`, `/auth/signup`)
+- Card form centered di atas canvas
+- Terhubung langsung ke JWT backend NestJS (`POST /api/auth/login`, `POST /api/auth/signup`)
+- Login menyertakan hint demo credentials: `admin@gadgetsolution.com / admin123`
+- Toggle visibility password
+- Redirect ke home setelah berhasil
+
+#### Checkout (`/checkout`)
+- Layout 2 kolom: daftar item (kiri), ringkasan pesanan sticky (kanan)
+- Kontrol kuantitas per item
+- Pengecekan autentikasi: jika belum login, diarahkan ke login
+- Pembuatan pesanan via `POST /api/orders` dengan JWT token
+- Halaman sukses setelah order berhasil
+
+### State Management (Zustand)
+
+| Store | Data | Persistensi |
+|-------|------|-------------|
+| `useCartStore` | `items[]`, `addItem()`, `removeItem()`, `updateQuantity()`, `clearCart()` | `localStorage` key `gadgetsol-cart` |
+| `useAuthStore` | `user`, `token`, `isAuthenticated`, `setAuth()`, `logout()` | `localStorage` keys `gadgetsol-token`, `gadgetsol-user` |
+
+### Integrasi API
+
+| Instance | Base URL | Konfigurasi |
+|----------|----------|-------------|
+| `api` (NestJS) | `http://localhost:3001` | JWT token interceptor dari `localStorage`, auto-remove token pada 401 |
+| `aiApi` (FastAPI) | `http://localhost:8000` | Timeout 60 detik (RAG membutuhkan waktu) |
+
+**Fallback Mock Data:** Ketika backend NestJS tidak aktif, semua hooks (`useProducts`, `useCategories`) secara otomatis menggunakan data mock dari `mock-data.ts` (8 produk dengan gambar premium dari Unsplash). Tidak ada error yang ditampilkan ke pengguna.
+
+### Cara Menjalankan Frontend
+
+```bash
+cd frontend
+npm install          # Install dependensi (jika belum)
+npm run dev          # Development server di http://localhost:3000
+npm run build        # Production build (validasi TypeScript)
+```
+
+> **Catatan:** Frontend dapat berjalan mandiri tanpa backend. Data produk akan otomatis menggunakan mock data.
 
 ## 💾 Skema Database & Migrasi
 
@@ -352,3 +520,22 @@ Database menggunakan **PostgreSQL 16 + pgvector** melalui image Docker `pgvector
 - ✅ Upgrade `rag_engine.py` dari dual-source ke **triple-source retrieval**: pgvector produk + pgvector dokumen + DuckDuckGo internet search
 - ✅ Dependensi baru: `duckduckgo-search>=7.0.0`, `trafilatura>=2.0.0`
 - ✅ Dokumentasi DOCUMENTATION.md diperbarui
+
+### [2026-05-15] Phase 3 Selesai: Frontend Development (Next.js)
+
+**Perubahan Utama:**
+- Scaffolding Next.js 16 (App Router) di `/frontend` dengan TypeScript + Tailwind CSS v4
+- Implementasi penuh sistem desain `DESIGN.md`: warm cream canvas, Cursor Orange CTA, hairline-only depth, Inter font, 80px section rhythm
+- Adaptasi pola kartu produk Syihab Store: brand header, trust badge bar, info cicilan
+- **7 Komponen React:** Navbar, Footer, ProductCard, CategoryPill, HeroBanner, CartDrawer, ChatWidget
+- **6 Halaman:** Home (hero + grid), Katalog (search + filter + pagination), Detail Produk (SSR + spek), Login (JWT), Signup (JWT), Checkout (order API)
+- State management Zustand: cart (persisted) + auth (JWT token)
+- Integrasi API: NestJS backend (`/api/products`, `/api/auth`, `/api/orders`) + FastAPI AI (`/api/chat`)
+- Fallback mock data otomatis ketika backend offline
+- Dependensi: `axios`, `zustand`, `lucide-react`, `@tanstack/react-query`
+
+**Catatan Teknis:**
+- Tailwind CSS v4 menggunakan `@theme inline` di CSS (bukan `tailwind.config.ts`)
+- Next.js 16 memerlukan Suspense boundary untuk `useSearchParams()` pada halaman static
+- Gambar eksternal dikonfigurasi via `next.config.ts` `remotePatterns` (Unsplash, Pinterest)
+- `npm run build` berhasil: 0 error, 8/8 route terkompilasi
