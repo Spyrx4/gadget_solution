@@ -1,0 +1,23 @@
+services:
+  postgres:
+    image: pgvector/pgvector:pg16
+    container_name: gadget-solution-postgres
+    restart: always
+    environment:
+      POSTGRES_USER: gadgetadmin
+      POSTGRES_PASSWORD: gadgetpass123
+      POSTGRES_DB: gadget_solution
+    ports:
+      - "5433:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - gadget-net
+
+volumes:
+  postgres_data:
+    driver: local
+
+networks:
+  gadget-net:
+    driver: bridge
