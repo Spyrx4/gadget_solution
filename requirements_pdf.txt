@@ -1,0 +1,110 @@
+TUGAS KELOMPOK
+PROYEK E-COMMERCE
+Rancang Toko Online UMKM
+⏰ Durasi Pengerjaan: 2 Minggu
+Tujuan Tugas
+Mahasiswa mampu merancang model bisnis, arsitektur sistem, dan strategi pemasaran untuk
+toko online UMKM secara terintegrasi, kemudian mempresentasikannya di depan kelas.
+Ketentuan Tugas
+Bentuk Tugas
+• Dikerjakan secara kelompok (3–4 orang per kelompok)
+• Waktu pengerjaan: 2 minggu
+Hasil Akhir yang Dikumpulkan
+• Presentasi PowerPoint — 8–10 slide, dipresentasikan maksimal 15 menit per kelompo
+• Dokumen Laporan Proyek + Hasil Screenshot Web — format .docx, font 12
+pt, spasi 1.5
+k
+Topik Proyek
+Pilih satu jenis UMKM di Indonesia dan rancang toko online-nya sebagai platform mandiri (bukan
+di marketplace seperti Shopee/Tokopedia).
+� Pilihan Tema UMKM
+Pilih salah satu kategori berikut sebagai tema proyek kelompok:
+Kategori UMKM Contoh Bisnis
+�Makanan & Minuman Snack lokal, kopi specialty, kerupuk, kue rumahan
+�Fashion Batik, konveksi lokal, aksesoris, tas tangan
+� Kerajinan Tangan Anyaman, keramik, patung, furnitur kayu
+� Produk Digital E-book, template desain, kursus online
+� Kesehatan & Kecantikan Skincare natural, produk herbal, aromaterapi
+� Jasa Kreatif Fotografi, desain grafis, konsultasi bisnis
+1 Analisis Model Bisnis — Business Model Canvas
+Rancang model bisnis toko online menggunakan Business Model Canvas dengan 9 elemen
+berikut:
+Elemen BMC Yang Perlu Dijelaskan
+Customer Segments Target pelanggan utama (umur, lokasi, preferensi)
+Value Proposition Nilai unik produk/layanan dibanding kompetitor
+Channels Saluran distribusi produk (website, sosial media,
+marketplace, dll)
+Customer Relationships Cara membangun hubungan dengan pelanggan (CS,
+review, program loyalitas)
+Revenue Streams Sumber pendapatan (penjualan, langganan, komisi, iklan)
+Key Resources Sumber daya utama (produk, tim, teknologi, modal)
+Key Activities Aktivitas utama (produksi, pemasaran, pengiriman, CS)
+Key Partnerships Mitra strategis (kurir, payment gateway, supplier, influencer)
+Cost Structure Struktur biaya utama (produksi, hosting, marketing, logistik)
+2 Desain Arsitektur Sistem
+Buat diagram arsitektur toko online yang menunjukkan komponen-komponen berikut, lalu jelaskan
+singkat peran dan alasan pemilihan teknologinya:
+Komponen Pilihan / Keterangan
+Platform / CMS WordPress + WooCommerce, Shopify, atau Custom
+Development
+Frontend HTML/CSS, React, Vue, atau WordPress theme
+Backend PHP, Node.js, atau Python + Framework
+Database MySQL, PostgreSQL, atau MongoDB
+Hosting Shared hosting / VPS / Cloud (sesuai kebutuhan traffic)
+Payment Gateway Midtrans, Xendit, DOKU (e-wallet, QRIS, transfer bank,
+kartu)
+Keamanan SSL/TLS, Firewall, enkripsi data, backup rutin
+API Integrasi Logistik (JNE, J&T, SiCepat), Email, Notifikasi
+3 Strategi Digital Marketing
+Rancang strategi marketing menggunakan minimal 3–4 channel utama berikut:
+Channel Yang Perlu Dirancang
+SEO Riset kata kunci produk; optimasi on-page (judul, deskripsi,
+URL slug)
+Social Media Instagram, TikTok, atau Facebook — pilih platform, jenis
+konten & frekuensi posting
+Iklan Berbayar Google Ads atau Social Media Ads — tetapkan budget &
+target audiens
+Email & Retention Newsletter pelanggan & program loyalitas untuk repeat order
+4 Rancangan Logistik & Pengiriman
+Jelaskan sistem logistik toko online yang dirancang:
+Aspek Logistik Keterangan
+Mitra Logistik JNE, J&T, SiCepat, atau ekspedisi lokal lainnya
+Zona Pengiriman Lokal / Nasional / Internasional
+Biaya Ongkir Fixed / Weight-based / Distance-based — jelaskan
+sistemnya
+Estimasi Waktu Berapa hari pengiriman per zona
+Kebijakan Retur Proses pengembalian produk jika ada kerusakan / keluhan
+pembeli
+5. Format Laporan Proyek (2–3 Halaman)
+Bagian Porsi Isi
+Cover & Identitas ½ halaman Judul proyek, nama anggota, kelas,
+tanggal, dosen
+Profil UMKM & BMC 1 halaman Deskripsi UMKM + Tabel Business
+Model Canvas (9 elemen)
+Arsitektur & Teknologi ½ halaman Diagram arsitektur sederhana + Tabel
+pilihan teknologi
+Marketing & Logistik ½ halaman 3–4 strategi marketing + mitra logistik &
+estimasi biaya
+Kesimpulan & Keunggulan ½ halaman Keunggulan kompetitif toko online yang
+dirancang
+Format Presentasi PowerPoint (8–10 Slide)
+• Slide 1 → Cover (Judul + Nama Kelompok)
+• Slide 2 → Profil UMKM yang dipilih
+• Slide 3 → Business Model Canvas
+• Slide 4 → Arsitektur Sistem & Teknologi
+• Slide 5 → Strategi Digital Marketing
+• Slide 6 → Rencana Logistik & Pengiriman
+• Slide 7 → Keunggulan Kompetitif
+• Slide 8 → Timeline & Budget Estimasi
+• Slide 9 → Kesimpulan
+• Slide 10 → Sesi Tanya Jawab
+⚠Catatan Penting
+✔ Setiap anggota kelompok wajib berpartisipasi aktif dan siap menjawab pertanyaan
+saat presentasi.
+✔ Gunakan data dan referensi dari materi kuliah e-commerce semester 5.
+✔ Laporan & presentasi harus menunjukkan pemahaman konsep e-commerce secara
+mendalam.
+✔ Mockup atau prototype sederhana website.
+✔ Kumpulkan file laporan + presentasi sebelum jadwal presentasi dimulai.
+� Selamat Mengerjakan! �
+Tunjukkan kreativitas dan kerja sama terbaik kelompok Anda.
